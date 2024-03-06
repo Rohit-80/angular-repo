@@ -1,0 +1,30 @@
+
+.main-section{
+    width: 100%;
+    height: auto;
+}
+
+.center-section{
+     width: 70%;
+     height: auto;
+     margin: 1rem auto;
+     /* background-color: green; */
+}
+
+
+.actions {
+    padding: 0 16px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+  .office-viewer {
+    width: 100%;
+    height: calc(100% - 44px);
+    overflow: hidden;
+  
+    iframe {
+      /* height: calc(100% - 4px); */
+          height: calc(100% - -22px);
+    }
+  }

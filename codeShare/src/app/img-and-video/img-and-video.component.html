@@ -1,0 +1,63 @@
+<div style="width: 100%">
+    <h1> Upload Widget</h1>
+  <h1>
+    <mat-radio-group aria-label="Select an option" name="uploadVal">
+        <mat-radio-button value="img">img</mat-radio-button>
+        <mat-radio-button value="video">video</mat-radio-button>
+        <mat-radio-button value="pdf">pdf</mat-radio-button>
+        <mat-radio-button value="doc">doc</mat-radio-button>
+        <mat-radio-button value="ppt">ppt</mat-radio-button>
+        <mat-radio-button value="excel">excel</mat-radio-button>
+        <mat-radio-button value="none"  >none</mat-radio-button>
+
+
+      </mat-radio-group>
+
+    <button id="upload_widget" (click)="openWidget()" class="cloudinary-button">
+      Upload files
+    </button>
+  </h1>
+
+  <div class="image-div"> 
+  <div class="image-container">
+    <div class="image">
+      <span *ngFor="let item of imgArray">
+        <!-- <advanced-image  [cldImg]="item[1].url"></advanced-image> -->
+        <img [src]="item[1].url" style="width: 200px; height: 200px" alt="" />
+      </span>
+    </div>
+  </div>
+  
+  <aside >
+    <p class="header"> Image List </p>
+    <mat-selection-list #shoes [multiple]="false"  >
+        <mat-list-option *ngFor="let shoe of ['first','second']">
+          {{shoe}}
+        </mat-list-option>
+      </mat-selection-list>
+
+</aside>
+</div>
+
+<div class="image-div"> 
+    <div class="image-container">
+      <div class="image">
+        <span *ngFor="let item of imgArray">
+          <!-- <advanced-image  [cldImg]="item[1].url"></advanced-image> -->
+          <img [src]="item[1].url" style="width: 200px; height: 200px" alt="" />
+        </span>
+      </div>
+    </div>
+    
+    <aside >
+      <p class="header"> video List </p>
+      <mat-selection-list #shoes [multiple]="false"  >
+          <mat-list-option *ngFor="let shoe of ['first','second']">
+            {{shoe}}
+          </mat-list-option>
+        </mat-selection-list>
+  
+  </aside>
+  </div>
+
+</div>
