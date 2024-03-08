@@ -12,7 +12,7 @@
     ></ngx-doc-viewer>
    
  
-  <div class="button-div">
+  <div *ngIf="isLogged" class="button-div">
     <a style="width: 100%; height : 100%" target="_blank" [href]="urlDoc"  > 
       <button mat-flat-button color="accent" class="second" (click)="downloadDoc(urlDoc)">  download </button>
    </a>

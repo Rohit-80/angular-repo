@@ -1,9 +1,10 @@
 import { GridApi } from 'ag-grid-community';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { SafeResourceUrl, DomSanitizer } from "@angular/platform-browser";
 import { CloudinaryService } from '../img-and-video/cloudinary.service';
 import { HttpserviceService } from '../services/httpservice.service';
+import { AuthserviceService } from '../services/authservice.service';
 
 
 @Component({
@@ -30,6 +31,8 @@ export class DocfileComponent implements OnInit {
  
 public gridApi : any = GridApi<any>;
   fileName: any;
+  isLogged: boolean = false;
+  auth = inject(AuthserviceService);
 row(p : any){
   let row = this.gridApi.getSelectedRows()
   this.docArray = this.mainDocArray.filter(data=>data[0] == p.data.id);
@@ -79,7 +82,13 @@ onGridReady(p : any){
 
   ngOnInit(): void {
     this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlDoc);
+    if(sessionStorage.getItem('specialUser') == 'yes'){
+      this.isLogged = true;
+      this.auth.setUser();
+    }
 
+    this.auth.sub.subscribe(res=>this.isLogged = this.auth.isLogged)
+    
     this.http.getAllImages().subscribe(data=>{
       let dataObj = Object.entries(data);
       this.docArray = dataObj.filter((item: { type: string; }[]) => item[1].type == 'doc');

@@ -1,6 +1,7 @@
 import { GridApi } from 'ag-grid-community';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { HttpserviceService } from '../services/httpservice.service';
+import { AuthserviceService } from '../services/authservice.service';
 
 @Component({
   selector: 'app-pdffiles',
@@ -8,6 +9,7 @@ import { HttpserviceService } from '../services/httpservice.service';
   styleUrls: ['./pdffiles.component.css']
 })
 export class PdffilesComponent implements OnInit {
+  auth = inject(AuthserviceService)
 
   public gridApi : any = GridApi<any>;
   rowDataPdf = [{}]
@@ -17,6 +19,7 @@ export class PdffilesComponent implements OnInit {
      
   }]
    
+  isLogged : boolean = false
 
 
   //  gridApi : any = GridApi<any>
@@ -60,6 +63,14 @@ onGridReady(p : any){
   PdfName : string = ''
 
   ngOnInit(): void {
+    if(sessionStorage.getItem('specialUser') == 'yes'){
+      this.isLogged = true;
+      this.auth.setUser();
+    }
+
+    this.auth.sub.subscribe(res=>this.isLogged = this.auth.isLogged)
+
+    
     this.http.getAllImages().subscribe((data) => {
 
       let dataObj = Object.entries(data);

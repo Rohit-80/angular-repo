@@ -1,3 +1,4 @@
+import { AuthserviceService } from './../services/authservice.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CloudinaryService } from './cloudinary.service';
 import { HttpserviceService } from '../services/httpservice.service';
@@ -39,7 +40,8 @@ export class ImgAndVideoComponent implements OnInit {
   constructor(
     private cloudinary: CloudinaryService,
     private http: HttpserviceService,
-    public sanitizer: DomSanitizer
+    public sanitizer: DomSanitizer,
+    private auth : AuthserviceService
   ) {}
 
   imgForm: any;
@@ -88,9 +90,15 @@ export class ImgAndVideoComponent implements OnInit {
 
     });
    }
-
+   isLogged = this.auth.isLogged;
   ngOnInit() {
     // this.urlSafe = this.sanitizer.bypassSecurityTrustResourceUrl(this.urlDoc);
+    if(sessionStorage.getItem('specialUser') == 'yes'){
+      this.isLogged = true;
+      this.auth.setUser();
+    }
+
+    this.auth.sub.subscribe(res=>this.isLogged = this.auth.isLogged)
 
     this.imgForm = new FormGroup({
       upload : new FormControl(null,Validators.required),
